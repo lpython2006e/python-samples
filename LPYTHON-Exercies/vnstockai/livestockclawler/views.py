@@ -37,3 +37,4 @@ def can_view_stock(request):
 
 class RestrictedView(LoginRequiredMixin, TemplateView):
     template_name = 'login_required.html'
+
