@@ -3,6 +3,25 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 
+
+from sharestockdata.models import StockInfo
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+
+
+# def testper(request):
+#     if request.user.has_perm('sharestockdata.can_views'):
+#         print(request.user)
+
+
+# content_type = ContentType.objects.get_for_model(StockInfo)
+# permission = Permission.objects.create(
+#     codename='can_views',
+#     name='Can Views Stocks info',
+#     content_type=content_type,
+# )
+# pass 1e3q2wadS
+
 # Create your views here.
 from django.template import loader
 from django.utils.decorators import method_decorator

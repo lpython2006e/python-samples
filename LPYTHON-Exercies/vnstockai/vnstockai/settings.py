@@ -158,3 +158,5 @@ TEMPLATE_LOADERS = (
 
 
 # LOGIN_URL='/admin/login'
+
+from vnstockai import mysetting

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-#
+#thong tin website
 class StockInfo(models.Model):
     exchange = models.TextField(max_length=10)
     code = models.TextField(max_length=3)

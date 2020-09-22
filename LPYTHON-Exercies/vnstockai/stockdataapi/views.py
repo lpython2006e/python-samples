@@ -17,6 +17,8 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+#     add, edit, delete
+
 
 class GroupViewSet(viewsets.ModelViewSet):
     """

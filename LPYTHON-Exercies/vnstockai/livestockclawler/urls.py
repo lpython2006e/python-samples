@@ -10,4 +10,5 @@ urlpatterns = [
     # path('decorated_class/', views.DecoratedRestrictedView.as_view(), name='decorated_restricted_view')
 
     path('can_view_stock/', views.can_view_stock, name='can_view_stock'),
+    path('can_views/', views.testper),
 ]
