@@ -1,9 +1,9 @@
 import scrapy
 import json
+from livestockclawling.livestockclawling.items import StockDayDataItem, StockInfoItem, StockPriceDataItem, StockTransactionsItem
 
-
-class shsstock(scrapy.Spider):
-    name = 'cafeftock'
+class cafeftest(scrapy.Spider):
+    name = 'cafeftest'
     start_urls = ['https://liveboard.cafef.vn/']
     headers = {
         "Accept": "application/json, text/javascript, */*; q = 0.01",
@@ -24,3 +24,9 @@ class shsstock(scrapy.Spider):
                 url,
                 headers=self.headers
             )
+
+    def parse_item(self, response):
+        i = StockInfoItem()
+        i['exchange'] = response.css('h1.mop-ratings-wrap__title ::text').extract_first()
+        i['code'] = response.css('h1.mop-ratings-wrap__title ::text').extract_first()
+        return i
