@@ -18,7 +18,7 @@ django.setup()
 
 BOT_NAME = 'livestockclawling'
 
-SPIDER_MODULES = ['livestockclawling.livestockclawling.spiders']
+SPIDER_MODULES = ['livestockclawling.spiders']
 NEWSPIDER_MODULE = 'livestockclawling.livestockclawling.spiders'
 
 
