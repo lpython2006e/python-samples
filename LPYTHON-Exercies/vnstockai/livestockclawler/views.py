@@ -27,6 +27,11 @@ from django.template import loader
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from django.core.management.base import BaseCommand
+from livestockclawling.livestockclawling.spiders import cafeftest
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+
 
 def livestockclawler_home(request):
     template = loader.get_template('home.html')
@@ -56,4 +61,11 @@ def can_view_stock(request):
 
 class RestrictedView(LoginRequiredMixin, TemplateView):
     template_name = 'login_required.html'
+
+
+def run_clawler(request):
+    process = CrawlerProcess(get_project_settings())
+
+    process.crawl(cafeftest)
+    process.start()
 

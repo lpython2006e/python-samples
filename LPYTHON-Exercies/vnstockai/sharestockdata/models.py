@@ -5,11 +5,15 @@ from django.db import models
 
 # thong tin website
 class StockInfo(models.Model):
+    #san
     exchange = models.TextField(max_length=10)
+    #ma chung khoang vd AAA
     code = models.TextField(max_length=3)
+    # ten cua cong ty
     name = models.TextField()
+    #link cong ty
     cafef_link = models.TextField()
-    vietstock_link = models.TextField()
+    # website cong ty
     website = models.TextField()
 
 

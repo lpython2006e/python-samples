@@ -18,18 +18,55 @@ class cafeftest(scrapy.Spider):
     }
 
     def parse(self, response):
-        url = ['https://banggia.cafef.vn/stockhandler.ashx?center=undefined']
         raw_data = response.body
         data = json.loads(raw_data)
         for stock in data:
-            yield scrapy.Request(
-                url,
-                callback=self.parse_item,
-                headers=self.headers
-            )
+            try:
+                # yield scrapy.Request(
+                #     url,
+                #     callback=self.parse_item,
+                #     headers=self.headers,
+                #     body=stock.__str__()
+                # )
+                # yield stock
+                i = StockInfoItem()
+                i['exchange'] = 'HOSE'
+                i['code'] = stock['a']
+                i['name'] = 'default'
+                i['cafef_link'] = 'default'
+                i['website'] = 'default'
+                yield i
+            except Exception as err:
+                print('Data error: ' + err)
+
+    def parse_dynamic_url(self, response):
+        url = 'https://banggia.cafef.vn/.../???.chn'
+        # Get from database all the codes
+
+        for code in codes:
+            try:
+                yield scrapy.Request(
+                    url + code + ".chn",
+                    callback=self.parse_cafef_details_company,
+                    headers=self.headers
+                )
+            except Exception as err:
+                print('Data error: ' + err)
+
+    def parse_cafef_details_company(self, response):
+        i = StockInfoItem()
+        i['exchange'] = 'HOSE'
+        i['code'] = response['a']
+        i['name'] = 'default'
+        i['cafef_link'] = 'default'
+        i['website'] = 'default'
+        yield i
 
     def parse_item(self, response):
         i = StockInfoItem()
-        i['exchange'] = response.css('h1.mop-ratings-wrap__title ::text').extract_first()
-        i['code'] = response.css('h1.mop-ratings-wrap__title ::text').extract_first()
+        i['exchange'] = 'HOSE'
+        i['code'] = response['a']
+        i['name'] = 'default'
+        i['cafef_link'] = 'default'
+        i['website'] = 'default'
         return i

@@ -1,4 +1,4 @@
-# Scrapy settings for livestockclawling project
+# Scrapy settings for scraper2 project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,23 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-import os
-import sys
-import django
+BOT_NAME = 'scraper2'
 
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".."))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'vnstockai.settings'
-
-django.setup()
-
-BOT_NAME = 'livestockclawling'
-
-SPIDER_MODULES = ['livestockclawling.spiders']
-NEWSPIDER_MODULE = 'livestockclawling.livestockclawling.spiders'
+SPIDER_MODULES = ['scraper2.spiders']
+NEWSPIDER_MODULE = 'scraper2.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'livestockclawling (+http://www.yourdomain.com)'
+#USER_AGENT = 'scraper2 (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -34,7 +25,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -54,13 +45,13 @@ DOWNLOAD_DELAY = 3
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'livestockclawling.middlewares.LivestockclawlingSpiderMiddleware': 543,
+#    'scraper2.middlewares.Scraper2SpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'livestockclawling.middlewares.LivestockclawlingDownloaderMiddleware': 543,
+#    'scraper2.middlewares.Scraper2DownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -71,9 +62,9 @@ DOWNLOAD_DELAY = 3
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'livestockclawling.livestockclawling.pipelines.LivestockclawlingPipeline': 300,
-}
+#ITEM_PIPELINES = {
+#    'scraper2.pipelines.Scraper2Pipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
