@@ -28,7 +28,7 @@ class cafeftest(scrapy.Spider):
         urlCompanyDetailExtract = 'https://s.cafef.vn/hastc/{0}-whatever.chn'
         urlWebsiteExtract = 'https://s.cafef.vn/Ajax/CongTy/ThongTinChung.aspx?sym={0}'
 
-        limit = 2
+        limit = 5
         count = 0
         for stock in data:
             try:
