@@ -5,13 +5,13 @@ from django.db import models
 
 # thong tin website
 class StockInfo(models.Model):
-    #san
+    # san
     exchange = models.TextField(max_length=10)
-    #ma chung khoang vd AAA
+    # ma chung khoang vd AAA
     code = models.TextField(max_length=3)
     # ten cua cong ty
     name = models.TextField()
-    #link cong ty
+    # link cong ty
     cafef_link = models.TextField()
     # website cong ty
     website = models.TextField()
@@ -21,11 +21,12 @@ class StockInfo(models.Model):
 class StockDayData(models.Model):
     day = models.DateField()
     code = models.TextField(max_length=3)
-    min_price = models.IntegerField()
-    ref_price = models.IntegerField()
-    max_price = models.IntegerField()
-    min_bought_price = models.IntegerField()
-    max_bought_price = models.IntegerField()
+    min_price = models.IntegerField()  # gia san
+    ref_price = models.IntegerField()  # gia tham chieu (gia ngay hom trc)
+    max_price = models.IntegerField()  # gia tran
+    min_bought_price = models.IntegerField()  # gia cao nhat cua than cay nen
+    max_bought_price = models.IntegerField()  # gia thap nhat cua than cay nen
+    open_price = models.IntegerField(default=0)  # gia mo cua
 
 
 # Các giao dịch xảy ra trong ngày
@@ -41,3 +42,19 @@ class StockPriceData(models.Model):
     code = models.TextField(max_length=3)
     time = models.DateTimeField()
     price = models.IntegerField()
+
+
+class StockOrder(models.Model):
+    time = models.DateTimeField()
+    code = models.TextField(max_length=3)
+    volume = models.IntegerField()
+    price = models.IntegerField()
+    # type mua ban
+
+
+class testData(models.Model):
+    day = models.DateField()
+    min_order = models.IntegerField()
+    max_order = models.IntegerField()
+    volume = models.IntegerField()
+    change_limit = models.FloatField()
