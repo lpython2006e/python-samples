@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if messages %}
+
+    {% for message in messages %}
+    <div style="margin-top:70px" role="alert">{{message}}</div>
+    {% endfor %}
+
+{% endif %}
+<form method="POST">
+    {% csrf_token%}
+    Day:{{form.daydata}} <br><br>
+    Changelimit:{{form.changelimit}}
+
+
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+</form>
+
+</body>
+</html>
