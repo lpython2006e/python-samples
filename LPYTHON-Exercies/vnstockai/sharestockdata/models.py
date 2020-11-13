@@ -19,21 +19,21 @@ class StockInfo(models.Model):
 
 # THông tin chứng khoán trong ngày
 class StockDayData(models.Model):
-    day = models.DateField()
+    day = models.IntegerField()
     code = models.TextField(max_length=3)
-    min_price = models.IntegerField()  # gia san
-    ref_price = models.IntegerField()  # gia tham chieu (gia ngay hom trc)
-    max_price = models.IntegerField()  # gia tran
-    min_bought_price = models.IntegerField()  # gia cao nhat cua than cay nen
-    max_bought_price = models.IntegerField()  # gia thap nhat cua than cay nen
-    open_price = models.IntegerField(default=0)  # gia mo cua
+    min_price = models.FloatField()  # gia san
+    ref_price = models.FloatField()  # gia tham chieu (gia ngay hom trc)
+    max_price = models.FloatField()  # gia tran
+    min_bought_price = models.FloatField()  # gia cao nhat cua than cay nen
+    max_bought_price = models.FloatField()  # gia thap nhat cua than cay nen
+    open_price = models.FloatField(default=0)  # gia mo cua
 
 
 # Các giao dịch xảy ra trong ngày
 class StockTransactions(models.Model):
     time = models.DateTimeField()
     code = models.TextField(max_length=3)
-    volume = models.IntegerField()
+    volume = models.IntegerField(default=100)
     price = models.IntegerField()
 
 

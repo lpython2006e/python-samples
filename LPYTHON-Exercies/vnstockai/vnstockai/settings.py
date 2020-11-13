@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'vnstockai.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vnstockai1',
+        'NAME': 'vnstockai2',
         'USER': os.environ['DJANGO_DATABASE_USER'],
         'PASSWORD': os.environ['DJANGO_DATABASE_PASSWORD'],
         'HOST': 'localhost',
