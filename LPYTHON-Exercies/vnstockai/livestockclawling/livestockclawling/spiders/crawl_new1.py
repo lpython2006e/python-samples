@@ -9,6 +9,7 @@ import scrapy
 import json
 from livestockclawling.livestockclawling.items import StockDayDataItem, StockInfoItem, StockPriceDataItem, \
     StockTransactionsItem
+import datetime
 
 dataName = []
 dayName = []
@@ -39,7 +40,7 @@ class PropertiesSpider(scrapy.Spider):
     def parse(self, response):
         raw_data = response.body
         data = json.loads(raw_data)
-        urlCompanyDetailExtract = 'https://s.cafef.vn/Lich-su-giao-dich-{0}-6.chn?date=29/10/2020' # change time
+        urlCompanyDetailExtract = 'https://s.cafef.vn/Lich-su-giao-dich-{0}-6.chn?date=27/10/2020'  # change time
         limit = 5
         count = 0
         for stock in data:
@@ -64,19 +65,25 @@ class PropertiesSpider(scrapy.Spider):
                 print('Data error: ' + err)
 
     def parse_cafef_details_company(self, response):
-        for i in range(1, 2):# cho nay sua lai tu 1 den 250 hoac nho hon 250
-            code = response.url[37:40]
-            # time = float(response.xpath(('//*[@id="tblData"]/tbody/tr[{}]/td[1]/text()').format(i)).get())
-            # price = float(response.xpath(('//*[@id="tblData"]/tbody/tr[{}]/td[2]/text()/text()').format(i)).get())
-            time = '2012-09-04 06:00'
-            price = 2.7
-            volume = 100
-            data_final = self.compose_data_final(None, code, time, price)
-            # time price volume trong bang lay khong duoc, xpath ra None, thu dung selector,time price volume o tren de thu lay dc du lieu chua
+        val_try = int(float(response.xpath('count(//*[@id="tblData"]/tr)').get()))
+        if val_try >= 1:
+            for i in range(1, val_try + 1):
+                code = response.url[37:40]
 
-            yield data_final
+                temp_time = response.xpath(('//*[@id="tblData"]/tr[{}]/td[1]/text()').format(i)).get()
+                time = datetime.datetime.strptime(temp_time, '%H:%M:%S')
+                price = float(response.xpath(('//*[@id="tblData"]/tr[{}]/td[2]/text()').format(i)).get())
+                volume_temp = (response.xpath(('//*[@id="tblData"]/tr[{}]/td[3]/text()').format(i)).get())
+                if volume_temp.find(',') != -1:
+                    volume = int(volume_temp.replace(',', ''))
+                else:
+                    volume = int(volume_temp)
+                data_final = self.compose_data_final(None, code, time, volume, price)
 
-    def compose_data_final(self, stock_info_item: StockTransactionsItem = None, code: str = None, time: float = None,
+                yield data_final
+
+    def compose_data_final(self, stock_info_item: StockTransactionsItem = None, code: str = None, time: datetime = None,
+                           volume: float = None,
                            price: float = None):
         if stock_info_item:
             self.mapped_data[stock_info_item['code']] = stock_info_item
@@ -84,9 +91,16 @@ class PropertiesSpider(scrapy.Spider):
             return self.mapped_data[stock_info_item['code']]
         if time:
             self.mapped_data[code.strip()]['time'] = time
-        # if volume:
-        #     self.mapped_data[code.strip()]['time'] = volume
-        # neu lay dc volume thi bo comment doan nay
+        if volume:
+            self.mapped_data[code.strip()]['volume'] = volume
+
         if price:
             self.mapped_data[code.strip()]['price'] = price
         return self.mapped_data[code.strip()]
+
+class Stock_day:
+    def __init__(self,code,time,volume,price):
+        self.time=None
+        self.code=None
+        self.volume=None
+        self.price=None
